@@ -11,7 +11,7 @@ const AppNavigator = createStackNavigator({
 },{
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'Camera',
+    initialRouteName: 'ProductList',
     navigationOptions: {
       headerStyle: { backgroundColor: '#FFF' }
     }

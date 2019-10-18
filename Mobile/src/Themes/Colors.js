@@ -28,7 +28,10 @@ const colors = {
   redswipe:'rgba(242,31,44,1)',
   brownishGrey: 'rgba(92,92,92,1)',
   warmGrey: 'rgba(124,124,124,1)',
-  pinkishRed:'rgba(237,27,45,1)'
+  pinkishRed:'rgba(237,27,45,1)',
+  yellowML: '#ffe600',
+  blueML: '#3483fa',
+  
 };
   
 export default colors;

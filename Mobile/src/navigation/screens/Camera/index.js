@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, Button, TouchableOpacity, Modal } from 'react-native';
 import { RNCamera } from 'react-native-camera-tflite';
 import ImageResizer from 'react-native-image-resizer';
 import outputs from '../../../../Output.json';
 import File from '../../../Services/File';
 import Navigator from '../../../Services/Navigator';
 import _ from 'lodash';
+
+import api from './api';
+
 import { Colors, Metrics } from '../../../Themes/index.js';
 let _currentInstant = 0;
 export default class CameraScreen extends Component {
@@ -16,7 +19,9 @@ export default class CameraScreen extends Component {
       output: "",
       currentTag: "",
       items: [],
-      base64imgs: []
+      base64imgs: [],
+      finalItems: [],
+      isVisible: false
     };
 
     this.takePicture = this.takePicture.bind(this);
@@ -56,6 +61,10 @@ processOutput({data}) {
     }
   }
 
+  showProducts = () => {
+    this.setState({isVisible: !this.state.isVisible});
+  }
+
   getProductsByImage = async () =>{
 
     const litems = this.state.items;
@@ -63,14 +72,29 @@ processOutput({data}) {
     let sendItems = [];
 
     for(let i = 0; i < litems.length; i++){
-      let litem = litems[i];
-      litem.image = lbase64[i].image64;
+      let litem = { picture: lbase64[i].image64, tag: litems[i].tag }
+
+      api.getProductsByImage(litem)
+      .then(response => {
+        if (response instanceof Error) {
+          alert('error datos serv');
+          console.log('datos servicio error ---> ',response);
+        } else {
+          console.log('datos servicio ---> ',response);
+          if(response.id === undefined){
+            alert('not okey');
+          }else{
+            lfinalItems = this.state.finalItems;
+            this.setState({finalItems: [...lfinalItems, {items: response}]})
+          }
+          //this.setState({...finalItems, {data: response}})
+        }
+      });
+      
       sendItems.push(litem);
     }
 
     console.log('sendItems+++++++', sendItems.length ,sendItems);
-
-    // this.setState({items: litems}) 
   }
 
   goProductList = () => {
@@ -147,6 +171,13 @@ processOutput({data}) {
         });
     }
   }
+
+  renderModal = () => {
+    return (
+    <View style={{flex:1, backgroundColor: Colors.yellowML}}>
+      <Text>MODAL</Text>
+    </View>);
+  }
   
   render() {
     const modelParams = {
@@ -170,11 +201,11 @@ processOutput({data}) {
             onModelProcessed={data => this.processOutput(data)}
             modelParams={modelParams}
         >
-          <TouchableOpacity style={{flex:5, width: Metrics.screenWidth}} onLongPress={this.takePicture}>
+          <TouchableOpacity style={{flex:5, width: Metrics.screenWidth}} onPress={this.takePicture} onLongPress={() => this.setState({items: [], base64imgs: [], finalItems: []})}>
             <Text style={styles.cameraText}>{this.state.output}</Text>
           </TouchableOpacity> 
-          <View style={{flex:1, width: Metrics.screenWidth, backgroundColor: Colors.white}}>
-            <Button title={'Ver mi lista (' + this.state.items.length + (this.state.items.length > 0 ? ' items)' : this.state.items.length  == 0 ? ' items)' : ' item)')} onPress={this.getProductsByImage} />
+          <View style={{height: 40, width: Metrics.screenWidth, backgroundColor: Colors.white}}>
+            <Button style={{backgroundColor: Colors.blueML, height: 40}} title={'Ver mi lista (' + this.state.items.length + (this.state.items.length > 0 ? ' items)' : this.state.items.length  == 0 ? ' items)' : ' item)')} onPress={this.goProductList} />
           </View>    
         </RNCamera>
       </View>
