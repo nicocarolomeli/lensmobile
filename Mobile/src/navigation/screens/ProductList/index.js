@@ -13,6 +13,38 @@ const ProductListScreen = (props) => {
 
   // console.log('items --->>', props.navigation.state.params.items);
 
+  // goDetail = async () =>{
+
+  //   const litems = this.state.items;
+  //   const lbase64 = this.state.base64imgs;
+  //   let sendItems = [];
+
+  //   for(let i = 0; i < litems.length; i++){
+  //     let litem = { picture: lbase64[i].image64, tag: litems[i].tag }
+
+  //     api.getProductsByImage(litem)
+  //     .then(response => {
+  //       if (response instanceof Error) {
+  //         alert('error datos serv');
+  //         console.log('datos servicio error ---> ',response);
+  //       } else {
+  //         console.log('datos servicio ---> ',response);
+  //         if(response.id === undefined){
+  //           alert('not okey');
+  //         }else{
+  //           lfinalItems = this.state.finalItems;
+  //           this.setState({finalItems: [...lfinalItems, {items: response}]})
+  //         }
+  //         //this.setState({...finalItems, {data: response}})
+  //       }
+  //     });
+      
+  //     sendItems.push(litem);
+  //   }
+
+  //   console.log('sendItems+++++++', sendItems.length ,sendItems);
+  // }
+
   return (
     <View style={{flex:1}} >
       <View style={{flex:1, backgroundColor: Colors.yellowML}}>
@@ -61,7 +93,7 @@ const ProductListScreen = (props) => {
         }
       </View>
       <View style={{height: 40, width: Metrics.screenWidth, backgroundColor: Colors.white}}>
-        <Button style={{backgroundColor: Colors.blueML, height: 40}} title={'Buscar artículos'} onPress={this.goProductList} />
+        <Button style={{backgroundColor: Colors.blueML, height: 40}} title={'Buscar artículos'} onPress={this.goDetail} />
       </View>
       
     </View>      
