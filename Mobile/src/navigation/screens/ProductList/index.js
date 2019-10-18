@@ -5,45 +5,14 @@ import Navigator from '../../../Services/Navigator';
 import { Images, Metrics, Colors } from '../../../Themes';
 import { View } from 'native-base';
 
-const data = [ { image: 'file:///data/user/0/com.mercadolibre.mercadolens/cache/1571367965667.JPEG', tag: 'studio couch' },
-{ image: 'file:///data/user/0/com.mercadolibre.mercadolens/cache/1571367976636.JPEG', tag: 'tub' } ];
-
 const ProductListScreen = (props) => {      
   const {dispatch} = props.navigation;    
 
-  // console.log('items --->>', props.navigation.state.params.items);
+  console.log('items --->>', props.navigation.state.params.items, props.navigation.state.params.base64imgs);
 
-  // goDetail = async () =>{
-
-  //   const litems = this.state.items;
-  //   const lbase64 = this.state.base64imgs;
-  //   let sendItems = [];
-
-  //   for(let i = 0; i < litems.length; i++){
-  //     let litem = { picture: lbase64[i].image64, tag: litems[i].tag }
-
-  //     api.getProductsByImage(litem)
-  //     .then(response => {
-  //       if (response instanceof Error) {
-  //         alert('error datos serv');
-  //         console.log('datos servicio error ---> ',response);
-  //       } else {
-  //         console.log('datos servicio ---> ',response);
-  //         if(response.id === undefined){
-  //           alert('not okey');
-  //         }else{
-  //           lfinalItems = this.state.finalItems;
-  //           this.setState({finalItems: [...lfinalItems, {items: response}]})
-  //         }
-  //         //this.setState({...finalItems, {data: response}})
-  //       }
-  //     });
-      
-  //     sendItems.push(litem);
-  //   }
-
-  //   console.log('sendItems+++++++', sendItems.length ,sendItems);
-  // }
+  goDetail = () => {
+    dispatch(Navigator.goToRouteWithParams('ProductML', {items: props.navigation.state.params.items, base64imgs: props.navigation.state.params.base64imgs }));
+  }
 
   return (
     <View style={{flex:1}} >
@@ -72,11 +41,11 @@ const ProductListScreen = (props) => {
       </View>
       <View style={{flex:8}}>
         {
-          // props.navigation.state.params !== undefined &&
-          // props.navigation.state.params !== null &&
-          // props.navigation.state.params.items !== undefined &&
-          // props.navigation.state.params.items !== null ?
-          data.map((item) => {    
+          props.navigation.state.params !== undefined &&
+          props.navigation.state.params !== null &&
+          props.navigation.state.params.items !== undefined &&
+          props.navigation.state.params.items !== null ?
+          props.navigation.state.params.items.map((item) => {    
             return (  
             <View key={item.image} style={{ alignContent: 'flex-end', flexDirection: 'row', width: Metrics.screenWidth, height: Metrics.screenHeight * 0.2}}>   
               <View style={{flex: 2, paddingTop:20}}>
@@ -88,8 +57,8 @@ const ProductListScreen = (props) => {
             </View>
             );
           })
-          // :
-          // null
+          :
+          null
         }
       </View>
       <View style={{height: 40, width: Metrics.screenWidth, backgroundColor: Colors.white}}>

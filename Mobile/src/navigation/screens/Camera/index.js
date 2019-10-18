@@ -26,7 +26,8 @@ export default class CameraScreen extends Component {
 
     this.takePicture = this.takePicture.bind(this);
   }
-processOutput({data}) {
+
+  processOutput({data}) {
 
     // const dataTest = _.map(data, item => console.log("data-----> ", item))
     
@@ -65,40 +66,9 @@ processOutput({data}) {
     this.setState({isVisible: !this.state.isVisible});
   }
 
-  getProductsByImage = async () =>{
-
-    const litems = this.state.items;
-    const lbase64 = this.state.base64imgs;
-    let sendItems = [];
-
-    for(let i = 0; i < litems.length; i++){
-      let litem = { picture: lbase64[i].image64, tag: litems[i].tag }
-
-      api.getProductsByImage(litem)
-      .then(response => {
-        if (response instanceof Error) {
-          alert('error datos serv');
-          console.log('datos servicio error ---> ',response);
-        } else {
-          console.log('datos servicio ---> ',response);
-          if(response.id === undefined){
-            alert('not okey');
-          }else{
-            lfinalItems = this.state.finalItems;
-            this.setState({finalItems: [...lfinalItems, {items: response}]})
-          }
-          //this.setState({...finalItems, {data: response}})
-        }
-      });
-      
-      sendItems.push(litem);
-    }
-
-    console.log('sendItems+++++++', sendItems.length ,sendItems);
-  }
-
   goProductList = () => {
-    this.props.navigation.dispatch(Navigator.goToRouteWithParams('ProductList', {items: this.state.items}));
+    console.log('imgs+++', this.state.base64imgs.length)
+    this.props.navigation.dispatch(Navigator.goToRouteWithParams('ProductList', {items: this.state.items, base64imgs: this.state.base64imgs}));
   }
 
   takePicture = async function () {
