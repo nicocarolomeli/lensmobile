@@ -14,7 +14,7 @@ const AppNavigator = createStackNavigator({
 },{
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'Camera',
+    initialRouteName: 'Splash',
     navigationOptions: {
       headerStyle: { backgroundColor: '#FFF' }
     }
