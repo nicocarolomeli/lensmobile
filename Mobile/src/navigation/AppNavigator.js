@@ -2,14 +2,16 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import SplashScreen from './screens/Splash';
 import CameraScreen from './screens/Camera';
+import ProductListScreen from './screens/ProductList';
 
 const AppNavigator = createStackNavigator({
   Splash: { screen: SplashScreen},
   Camera: { screen: CameraScreen},
+  ProductList: { screen: ProductListScreen},
 },{
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'Splash',
+    initialRouteName: 'Camera',
     navigationOptions: {
       headerStyle: { backgroundColor: '#FFF' }
     }
