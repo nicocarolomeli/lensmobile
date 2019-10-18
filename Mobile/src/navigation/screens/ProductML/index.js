@@ -40,15 +40,17 @@ export default class ProductMLScreen extends React.Component {
           console.log('datos servicio error ---> ',response);
         } else {
           console.log('datos servicio ---> ',response);
-          // if(response.id === undefined){
+          // if(response .length > 0){
           //   console.log('not okey');
           //   // let lfinalItems = this.state.searchResults;
           //   // this.setState({searchResults: [...lfinalItems, {searchResults: []}]});
 
           // }else{
-            // let lfinalItems = this.state.searchResults;
-            this.setState({searchResults: response});
+          //   let lfinalItems = this.state.searchResults;
+          //   this.setState({searchResults: response});
           // }
+          let lfinalItems = this.state.searchResults;
+          this.setState({searchResults: response});
         }
       });
     }
@@ -127,7 +129,7 @@ export default class ProductMLScreen extends React.Component {
                       return (
                         <TouchableOpacity 
                         key={search.id}
-                        style={{width: 120, height: 120, justifyContent: 'flex-start', borderColor: Colors.blueML, borderWidth:1}}
+                        style={{width: 120, height: 120, justifyContent: 'flex-start'}}
                         onPress={()=>this.addToCart(item, search)}>
                           <Text style={{fontSize: 10, color: Colors.black, textAlign: 'center'}}>{search.name}</Text>
                           <Text style={{fontSize: 10, color: Colors.black, textAlign: 'center'}}>{search.price == null ? 0 :search.price}</Text>
