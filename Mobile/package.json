@@ -17,7 +17,7 @@
     "query-string": "6.4.2",
     "ramda": "0.26.1",
     "react": "16.8.3",
-    "react-native": "0.59.2",
+    "react-native": "0.62.3",
     "react-native-camera-tflite": "0.0.3",
     "react-native-crypto-js": "1.0.0",
     "react-native-doc-viewer": "git://github.com/tbkjfc/react-native-doc-viewer.git#fix-android-openDoc",
