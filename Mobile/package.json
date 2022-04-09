@@ -12,7 +12,7 @@
     "appcenter": "2.2.0",
     "appcenter-analytics": "2.2.0",
     "appcenter-crashes": "2.2.0",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "native-base": "2.12.1",
     "query-string": "6.4.2",
     "ramda": "0.26.1",
